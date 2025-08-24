@@ -32,7 +32,7 @@ $ lein test-refresh
 
 ## Running the clojurescript tests
 
-First, make sure you haev node 23 or greater.
+First, make sure you have node 23 or greater.
 
 Install the node dependencies:
 
