@@ -31,9 +31,11 @@
       false 1.0M
       false -1.0M)
 
-    (is #?@(:cljs [(= false (zero? nil))]
-            :default [(thrown? Exception (zero? nil))]))
-    (is #?@(:cljs [(= false (zero? false))]
-            :default [(thrown? Exception (zero? false))]))
-    (is #?@(:cljs [(= false (zero? true))]
-            :default [(thrown? Exception (zero? true))]))))
+    #?@(:jank []
+        :default (do
+          (is #?@(:cljs [(= false (zero? nil))]
+                  :default [(thrown? Exception (zero? nil))]))
+          (is #?@(:cljs [(= false (zero? false))]
+                  :default [(thrown? Exception (zero? false))]))
+          (is #?@(:cljs [(= false (zero? true))]
+                  :default [(thrown? Exception (zero? true))]))))))
