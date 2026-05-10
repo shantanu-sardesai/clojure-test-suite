@@ -147,7 +147,7 @@ jobs:
 
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: Install pip and dependencies
         run: |
@@ -161,4 +161,4 @@ jobs:
           source .venv/bin/activate
           BASILISP_TEST_PATH="$(pwd)/test" \
             BASILISP_TEST_FILE_PATTERN='.*\.(lpy|cljc)' \
-            basilisp test -p test -- -n 2
+            basilisp test -p test -- -n 0
