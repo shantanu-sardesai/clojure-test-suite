@@ -3,7 +3,7 @@
             [clojure.core-test.number-range :as r]
             [clojure.core-test.portability #?(:cljs :refer-macros :default :refer) [when-var-exists] :as p]))
 
-(when-var-exists clojure.core/-
+(when-var-exists -
   (deftest test--
     (testing "common"
       (are [expected x y] (= expected (- x y))
@@ -79,7 +79,19 @@
       (is (= -45 (- 0 1 2 3 4 5 6 7 8 9)))
 
 
-      #?@(:cljs
+      #?@(:lpy
+          [(is (p/thrown? (- nil 1)))
+           (is (p/thrown? (- 1 nil)))
+           (is (p/thrown? (- nil 1N)))
+           (is (p/thrown? (- 1N nil)))
+           (is (p/thrown? (- nil 1.0)))
+           (is (p/thrown? (- 1.0 nil)))
+           (is (p/thrown? (- nil 1.0M)))
+           (is (p/thrown? (- 1.0M nil)))
+           (is (- r/min-int 1))
+           (is (- r/max-int -1))]
+
+          :cljs
           [(is (= -1 (- nil 1)))
            (is (= 1 (- 1 nil)))
            (is (= -1 (- nil 1N)))
@@ -88,9 +100,9 @@
            (is (= 1 (- 1.0 nil)))
            (is (= -1 (- nil 1.0M)))
            (is (= 1 (- 1.0M nil)))
-           ;; Add these back in later
-           #_(is (- r/min-int 1))
-           #_(is (- r/max-int -1))]
+           (is (- r/min-int 1))
+           (is (- r/max-int -1))]
+
           :default
           [(is (p/thrown? (- nil 1)))
            (is (p/thrown? (- 1 nil)))
