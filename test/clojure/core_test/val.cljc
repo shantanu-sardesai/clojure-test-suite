@@ -14,13 +14,14 @@
         (is (= :v (val (first (array-map :k :v)))))))
     (testing "`val` throws on lots of things"
       (are [arg] (p/thrown? (val arg))
-        nil
         0
-        '()
-        '(1 2)
-        {}
-        {1 2}
-        []
-        [1 2]                           ; might be dialect-specific
-        #{}
-        #{1 2}))))
+        #?@(:jank [] ; ; jank just returns the result of `second`, since it assumes a map entry is a vector of two objects.
+            :default [nil
+                      '()
+                      '(1 2)
+                      {}
+                      {1 2}
+                      []
+                      [1 2]
+                      #{}
+                      #{1 2}])))))
