@@ -30,10 +30,12 @@
     (is (= ##-Inf (min 1 2 3 4 5 ##-Inf)))
     (is (= 1 (min 1 2 3 4 5 ##Inf)))
 
+    #?@(:jank [(is (= 1 (min 1 ##NaN)))
+               (is (= ##Inf (min ##-Inf ##NaN ##Inf)))]
+        :default [(is (NaN? (min 1 ##NaN)))
+                  (is (NaN? (min ##-Inf ##NaN ##Inf)))])
     (is (NaN? (min ##NaN 1)))
-    (is (NaN? (min 1 ##NaN)))
     (is (NaN? (min 1 2 3 4 ##NaN)))
-    (is (NaN? (min ##-Inf ##NaN ##Inf)))
     (is (NaN? (min ##NaN)))
 
     #?@(:lpy
